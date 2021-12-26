@@ -1,7 +1,24 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
+    {% if request.user.is_authenticated %}
     <h2>Active Listings</h2>
 
-    TODO
+        {% for listing in listings %}
+            <div class="container border p-2 m-2">
+                <div class="row">
+                    <div class="col">
+                        <img src="{{ listing.image_url }}" alt="image" style="width: 300px; height: auto">
+                    </div>
+                    <div class="col text-left">
+                        <h2 class="display-4">{{ listing.title }}</h2>
+                        <h4>Price: ${{ listing.bid_price }}</h4>
+                        <p> Created at: <small>{{ listing.created_at }}</small></p>
+                        <a href="{% url 'listing' listing.id %}" type="submit" class="btn btn-primary">Go To Listing</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+    {% endif %}
 {% endblock %}

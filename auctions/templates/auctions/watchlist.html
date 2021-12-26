@@ -1,0 +1,35 @@
+{% extends 'auctions/layout.html' %}
+
+{% block body %}
+    <h3><b>Watchlist Form</b></h3>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}" role="alert">
+                {{ message |safe }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    {% if control != True %}
+        <h5>Your Watchlist is empty!</h5>
+    {% else %}
+        {% for listing in watchlist %}
+            <div class="container border p-2 m-2">
+                <div class="row">
+                    <div class="col">
+                        <img src="{{ listing.listing.image_url }}" alt="image" style="width: 300px; height: auto">
+                    </div>
+                    <div class="col text-left">
+                        <h2 class="display-4">{{ listing.listing.title }}</h2>
+                        <h4>Price: ${{ listing.listing.bid_price }}</h4>
+                        <p><small>{{ listing.listing.created_at }}</small></p>
+                        <a href="{% url 'listing' listing.listing.id %}" type="submit" class="btn btn-primary">Go To Listing</a>
+                        <a href="{% url 'delete_from_watchlist' listing.listing.id %}" type="submit" class="btn btn-danger">Delete From Watchlist</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+{% endblock %}
