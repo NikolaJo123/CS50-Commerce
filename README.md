@@ -20,6 +20,22 @@ To run this project you need to follow the required steps:
 			Quit the server with CTRL-BREAK "
 		
 	   Copy the http link "http://127.0.0.1:8000/" and past it in a browser and hit enter.
+	
 
 After completing all of the above steps you'll successfully run this Django commerce project.
-		
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Admin User <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+In order to create Admin user you need to run the following command in terminal:
+	
+	- python manage.py createsuperuser
+	
+	after typing the command Django will ask you to add credentials as follow.
+	
+	- Username: <admin_name>
+	- Email address: <admin@example.com>
+	- Password: **********
+	  Password (again): *********
+	  Superuser created successfully.
+
+

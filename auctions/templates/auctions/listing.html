@@ -1,0 +1,83 @@
+{% extends 'auctions/layout.html' %}
+
+{% block body %}
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}" role="alert">
+                {{ message |safe }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+  <h1>Listing: {{ listing.title }}</h1>
+
+  <div class="m-2">
+    <form action="{% url 'add_to_watchlist' listing.id %}" method="POST">
+      {% csrf_token %}
+      <button type="submit" name="button" value="Watchlist" class="btn btn-secondary btn-sm">Watchlist</button>
+    </form>
+  </div>
+  <div>
+    <img src="{{ listing.image_url }}" alt="image" style="width: 300px; height: auto">
+  </div>
+  <div>
+    <p>{{ listing.description }}</p>
+    {% if listing.status == 'False' %}
+
+    {% else %}
+        <h2>${{ listing.bid_price }}</h2>
+    {% endif %}
+      <p>{{ message }}</p>
+    {% if listing.status == 'False' %}
+        <div class="form-group">
+            <h5>This Auction is closed.</h5>
+        </div>
+    {% else %}
+        {% if user.username == listing.user.username %}
+            <form action="{% url 'close_auction' listing.id %}" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <input type="submit" name="button" class="btn btn-warning" value="Close Auction">
+                </div>
+            </form>
+        {% else %}
+            <form action="{% url 'place_bid' listing.id %}" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="bid">0 bid(s) so far. Your bid is the current bid</label>
+                </div>
+                <div class="form-group">
+                    {{ bid_form }}
+                </div>
+                <div class="form-group">
+                    <input type="submit" name="button" class="btn btn-primary" value="Place Bid">
+                </div>
+            </form>
+        {% endif %}
+    {% endif %}
+  </div>
+  <div>
+    <h5>Details</h5>
+    <ul>
+      <li>Listed by: {{ listing.owner }}</li>
+      <li>Category: {{ listing.category }}</li>
+    </ul>
+  </div>
+  <div>
+    <form action="{% url 'comment' listing.id %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Create Comment" class="btn btn-primary">
+    </form>
+  </div>
+    <div>
+        <h4>Comments</h4>
+        {% for comment in listing.comments.all %}
+          <div class="container m3-5 p-2 border">
+            <p class="mt-n3">{{ comment.user }} <small>{{ comment.created_at }}</small></p>
+            <p class="mt-n2">{{ comment.comment }}</p>
+          </div>
+        {% endfor %}
+    </div>
+{% endblock %}
