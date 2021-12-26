@@ -24,7 +24,7 @@ To run this project you need to follow the required steps:
 
 After completing all of the above steps you'll successfully run this Django commerce project.
 
->>>>>>>>>>>>>>>>>>>>>>>>>>>>> Admin User <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+############################# Admin User ######################################
 
 In order to create Admin user you need to run the following command in terminal:
 	
